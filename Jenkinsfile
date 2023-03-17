@@ -1,13 +1,11 @@
 pipeline {
 
-          agent {
+          agent any {
 		  
-		      label {
-			  
-			      label "built-in"
+		      
 				  customWorkspace "/mnt/project/"
-			  }
-		  }
+			  
+		  
 		  
 		  stages {
 		  
@@ -29,3 +27,4 @@ pipeline {
 		  
 		 		  }
 
+	  }
