@@ -1,18 +1,31 @@
 pipeline {
-    agent any 
-    stages {
-        stage ("clone git") {
-            steps {
-                sh "https://github.com/deshmukhpoonam/game-of-life.git"
-                 }
-        }
-         stage ("clean"){
-             steps {
-                 sh "mvn clean"
-             }
-         }
-             stage ("mvn install"){
-                 steps {
-                 sh "mvn install"
-                 }
-             }
+
+          agent {
+		  
+		      label {
+			  
+			      label "slave-1"
+				  customWorkspace "/mnt/project/"
+			  }
+		  }
+		  
+		  stages {
+		  
+		     stage ("package") {
+			 
+			     steps {
+				 
+				 sh "rm -rf /root/.m2/repository"
+				 sh "mvn clean install"
+				 sh "cp -r /mnt/project/gameoflife-web/target/gameoflife.war /mnt/server/apache-tomcat-9.0.73/webapps"
+				 
+			
+				 }
+			 
+			 
+			 }
+		  
+		  
+		  
+		 		  }
+
