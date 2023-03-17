@@ -1,8 +1,18 @@
-node{
-  stage('SCM checkout'){
-  git 'https://github.com/deshmukhpoonam/game-of-life'
-}
-  stage ('compile-pacakge'){
-    sh 'mvn package'
-  }
-}
+pipeline {
+    agent any 
+    stages {
+        stage ("clone git") {
+            steps {
+                sh "https://github.com/deshmukhpoonam/game-of-life.git"
+                 }
+        }
+         stage ("clean"){
+             steps {
+                 sh "mvn clean"
+             }
+         }
+             stage ("mvn install"){
+                 steps {
+                 sh "mvn install"
+                 }
+             }
