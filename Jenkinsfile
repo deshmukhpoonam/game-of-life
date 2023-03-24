@@ -1,19 +1,25 @@
-pipeline{
-    agent{
-	    label {
-		    label "built-in"
-			customWorkspace "/mnt/project"
-			   }
-		}
-		stages {
-		 stage ("deploy"){
-		    steps {
-		     sh "mvn clean install"
-		     sh "cp -r /mnt/project/gameoflife-web/target/gameoflife.war /mnt/server/apache-tomcat-9.0.73/webapps/"
-		      sh "chmod -R 777 /mnt"
-
-		        }
-		      }
-		   }
-		
+pipeline {
+ agent {
+  label {
+  
+     label "built-in"
+	 customWorkspace "/mnt/container"
         }
+     
+	    }
+
+  stages {
+   
+      stage ("deploy-on-doc-httpd"){
+	   steps {
+	      sh "docker run -itdp 90:80 --name httpdnew httpd bash"
+	      sh "mvn clean install"
+	      sh "cp -r  /mnt/container/gameoflife-web/target/gameoflife.war httpdnew:/usr/local/apache2/htdocs"
+		 
+	   
+	   }
+	  
+	 }
+  
+  }
+}
