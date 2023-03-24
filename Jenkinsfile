@@ -9,7 +9,8 @@ pipeline{
 		 stage ("deploy"){
 		    steps {
 		     sh "mvn clean install"
-		     cp -r /mnt/project/gameoflife-web/target/gameoflife.war /mnt/server/apache-tomcat-9.0.73
+		     sh "cp -r /mnt/project/gameoflife-web/target/gameoflife.war /mnt/server/apache-tomcat-9.0.73"
+		
 
 		        }
 		      }
